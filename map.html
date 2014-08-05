@@ -14,16 +14,44 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script>
-        var map;
+        var map, marker;
         function initialize() {
             var mapOptions = {
                 zoom: 2,
+                fillColor: '#ADFF2F',
                 center: new google.maps.LatLng(0, 0)
             };
             map = new google.maps.Map(document.getElementById('map-canvas'),
                     mapOptions);
+            var location = [
+                ['Irkutsk', 52.2977800, 104.2963900],
+                ['Ulan-Bator', 47.9077100, 106.8832400],
+                ['Dalan', 38.9122200, 121.6022200],
+                ['Kemer', 36.5977800, 30.5605600],
+                ['Шеньян', 27.8317300, 119.6570400] //не правильный
+            ];
+            setMarkers(map, location);
         }
 
+        function setMarkers(map, location) {
+//            var image = {
+//                url: '{{ url_for("static" , filename="img/surfmak.png" ) }}',
+//                size: new google.maps.Size(20,32),
+//                origin: new google.maps.Point(0,0),
+//                anchor: new google.maps.Point(0,32)
+//            };
+            var myLatLng;
+            for (var i = 0; i < location.length; i++) {
+                myLatLng = new google.maps.LatLng(location[i][1], location[i][2]);
+                new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+//                    icon: image,
+
+                    title: location[i][0]
+                });
+            }
+        }
         google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
